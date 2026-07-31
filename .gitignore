@@ -1,0 +1,7 @@
+﻿venv/
+warehouse.duckdb
+duckdb_spill/
+audit_log.jsonl
+.streamlit/secrets.toml
+__pycache__/
+*.pyc

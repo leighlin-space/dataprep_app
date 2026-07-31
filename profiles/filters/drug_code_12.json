@@ -1,0 +1,21 @@
+{
+  "name": "drug_code_12",
+  "drug_list": [
+    "9193",
+    "9143",
+    "9300",
+    "9050",
+    "9150",
+    "9801",
+    "9652",
+    "9780",
+    "9230",
+    "9120",
+    "9220L",
+    "9639"
+  ],
+  "region_values": [],
+  "date_start": "",
+  "date_end": "",
+  "description": "12-code opioid drug list, by drug code (not name) \u2014 matches a drug_code column."
+}

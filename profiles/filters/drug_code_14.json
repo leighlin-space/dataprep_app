@@ -1,0 +1,23 @@
+{
+  "name": "drug_code_14",
+  "drug_list": [
+    "9193",
+    "9143",
+    "9300",
+    "9050",
+    "9150",
+    "9801",
+    "9652",
+    "9780",
+    "9230",
+    "9120",
+    "9220L",
+    "9639",
+    "9064",
+    "9250B"
+  ],
+  "region_values": [],
+  "date_start": "",
+  "date_end": "",
+  "description": "14-code opioid drug list (superset of the 12-code list), by drug code."
+}

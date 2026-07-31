@@ -1,0 +1,17 @@
+{
+  "name": "opioid_8_drug",
+  "drug_list": [
+    "OXYCODONE",
+    "HYDROCODONE",
+    "MORPHINE",
+    "OXYMORPHONE",
+    "HYDROMORPHONE",
+    "FENTANYL",
+    "METHADONE",
+    "TAPENTADOL"
+  ],
+  "region_values": [],
+  "date_start": "2022-01-01",
+  "date_end": "2023-01-01",
+  "description": ""
+}
