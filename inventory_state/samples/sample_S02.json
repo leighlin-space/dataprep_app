@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-08-12 17:50:27",
+  "schema_group": "S02",
+  "label": "S02",
+  "strategy": "exact",
+  "seed": 20260812,
+  "rows_requested": 1000,
+  "rows_returned": 1000,
+  "population_rows": 0,
+  "selection_probability": null,
+  "row_groups_touched": 0,
+  "row_groups_total": 0,
+  "rows_per_group": 0,
+  "bytes_read_estimate": 0,
+  "files": [
+    "q4_2023_all.csv",
+    "q4_2024_all.csv",
+    "q4_2025_all.csv"
+  ],
+  "footerless_files": [
+    "q4_2025_all.csv",
+    "q4_2023_all.csv",
+    "q4_2024_all.csv"
+  ],
+  "caveat": "3 file(s)/sheet(s) in this group are not parquet, so they have no row groups and the metadata route doesn't apply to them. Reading the group in full and reservoir-sampling 1,000 rows — still a true simple random sample, just at the cost of a full read. (The row COUNT is already known exactly from the inventory scan; what's missing here is the row-group boundaries sampling needs.)",
+  "picks": null
+}

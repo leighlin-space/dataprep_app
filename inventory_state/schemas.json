@@ -1,0 +1,220 @@
+{
+  "S01": {
+    "schema_id": "S01",
+    "fp_strict": "3d3323aad61b",
+    "fp_names": "30a2e09e198e",
+    "fp_nameset": "f2c50c06a473",
+    "n_fields": 19,
+    "columns": [
+      {
+        "name": "Date",
+        "type": "BIGINT",
+        "physical": ""
+      },
+      {
+        "name": "Security",
+        "type": "VARCHAR",
+        "physical": ""
+      },
+      {
+        "name": "Ticker",
+        "type": "VARCHAR",
+        "physical": ""
+      },
+      {
+        "name": "McapRank",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "TurnRank",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "VolatilityRank",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "PriceRank",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "LitVol('000)",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "OrderVol('000)",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "Hidden",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "TradesForHidden",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "HiddenVol('000)",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "TradeVolForHidden('000)",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "Cancels",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "LitTrades",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "OddLots",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "TradesForOddLots",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "OddLotVol('000)",
+        "type": "DOUBLE",
+        "physical": ""
+      },
+      {
+        "name": "TradeVolForOddLots('000)",
+        "type": "DOUBLE",
+        "physical": ""
+      }
+    ],
+    "label": "",
+    "batch": "",
+    "first_seen": "2026-08-12 16:25:14",
+    "note": "",
+    "retained": true
+  },
+  "S02": {
+    "schema_id": "S02",
+    "fp_strict": "f362e0239b1c",
+    "fp_names": "30a2e09e198e",
+    "fp_nameset": "f2c50c06a473",
+    "n_fields": 19,
+    "columns": [
+      {
+        "name": "Date",
+        "type": "bigint",
+        "physical": ""
+      },
+      {
+        "name": "Security",
+        "type": "varchar",
+        "physical": ""
+      },
+      {
+        "name": "Ticker",
+        "type": "varchar",
+        "physical": ""
+      },
+      {
+        "name": "McapRank",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "TurnRank",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "VolatilityRank",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "PriceRank",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "LitVol('000)",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "OrderVol('000)",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "Hidden",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "TradesForHidden",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "HiddenVol('000)",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "TradeVolForHidden('000)",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "Cancels",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "LitTrades",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "OddLots",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "TradesForOddLots",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "OddLotVol('000)",
+        "type": "double",
+        "physical": ""
+      },
+      {
+        "name": "TradeVolForOddLots('000)",
+        "type": "double",
+        "physical": ""
+      }
+    ],
+    "label": "",
+    "batch": "",
+    "first_seen": "2026-08-12 16:46:30",
+    "note": "",
+    "retained": true
+  }
+}

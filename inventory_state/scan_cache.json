@@ -1,0 +1,353 @@
+{
+  "/Users/lisali/Downloads/individual_security_2025_q4/q4_2025_all.csv": [
+    {
+      "path": "/Users/lisali/Downloads/individual_security_2025_q4/q4_2025_all.csv",
+      "name": "q4_2025_all.csv",
+      "folder": "/Users/lisali/Downloads/individual_security_2025_q4",
+      "ext": ".csv",
+      "source_path": "/Users/lisali/Downloads/individual_security_2025_q4/q4_2025_all.csv",
+      "sheet": "",
+      "size_bytes": 68186010,
+      "mtime": 1774455331.0,
+      "row_count": 533076,
+      "row_count_source": "scan",
+      "n_fields": 19,
+      "row_groups": [],
+      "fp_strict": "f362e0239b1c",
+      "fp_names": "30a2e09e198e",
+      "fp_nameset": "f2c50c06a473",
+      "columns": [
+        {
+          "name": "Date",
+          "type": "bigint",
+          "physical": ""
+        },
+        {
+          "name": "Security",
+          "type": "varchar",
+          "physical": ""
+        },
+        {
+          "name": "Ticker",
+          "type": "varchar",
+          "physical": ""
+        },
+        {
+          "name": "McapRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TurnRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "VolatilityRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "PriceRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "LitVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OrderVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "Hidden",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradesForHidden",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "HiddenVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradeVolForHidden('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "Cancels",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "LitTrades",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OddLots",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradesForOddLots",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OddLotVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradeVolForOddLots('000)",
+          "type": "double",
+          "physical": ""
+        }
+      ],
+      "error": ""
+    }
+  ],
+  "/Users/lisali/Downloads/individual_security_2023_q4/q4_2023_all.csv": [
+    {
+      "path": "/Users/lisali/Downloads/individual_security_2023_q4/q4_2023_all.csv",
+      "name": "q4_2023_all.csv",
+      "folder": "/Users/lisali/Downloads/individual_security_2023_q4",
+      "ext": ".csv",
+      "source_path": "/Users/lisali/Downloads/individual_security_2023_q4/q4_2023_all.csv",
+      "sheet": "",
+      "size_bytes": 64689195,
+      "mtime": 1706568802.0,
+      "row_count": 460571,
+      "row_count_source": "scan",
+      "n_fields": 19,
+      "row_groups": [],
+      "fp_strict": "f362e0239b1c",
+      "fp_names": "30a2e09e198e",
+      "fp_nameset": "f2c50c06a473",
+      "columns": [
+        {
+          "name": "Date",
+          "type": "bigint",
+          "physical": ""
+        },
+        {
+          "name": "Security",
+          "type": "varchar",
+          "physical": ""
+        },
+        {
+          "name": "Ticker",
+          "type": "varchar",
+          "physical": ""
+        },
+        {
+          "name": "McapRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TurnRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "VolatilityRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "PriceRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "LitVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OrderVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "Hidden",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradesForHidden",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "HiddenVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradeVolForHidden('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "Cancels",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "LitTrades",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OddLots",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradesForOddLots",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OddLotVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradeVolForOddLots('000)",
+          "type": "double",
+          "physical": ""
+        }
+      ],
+      "error": ""
+    }
+  ],
+  "/Users/lisali/Downloads/individual_security_2024_q4/q4_2024_all.csv": [
+    {
+      "path": "/Users/lisali/Downloads/individual_security_2024_q4/q4_2024_all.csv",
+      "name": "q4_2024_all.csv",
+      "folder": "/Users/lisali/Downloads/individual_security_2024_q4",
+      "ext": ".csv",
+      "source_path": "/Users/lisali/Downloads/individual_security_2024_q4/q4_2024_all.csv",
+      "sheet": "",
+      "size_bytes": 68292014,
+      "mtime": 1738088306.0,
+      "row_count": 485808,
+      "row_count_source": "scan",
+      "n_fields": 19,
+      "row_groups": [],
+      "fp_strict": "f362e0239b1c",
+      "fp_names": "30a2e09e198e",
+      "fp_nameset": "f2c50c06a473",
+      "columns": [
+        {
+          "name": "Date",
+          "type": "bigint",
+          "physical": ""
+        },
+        {
+          "name": "Security",
+          "type": "varchar",
+          "physical": ""
+        },
+        {
+          "name": "Ticker",
+          "type": "varchar",
+          "physical": ""
+        },
+        {
+          "name": "McapRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TurnRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "VolatilityRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "PriceRank",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "LitVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OrderVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "Hidden",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradesForHidden",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "HiddenVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradeVolForHidden('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "Cancels",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "LitTrades",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OddLots",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradesForOddLots",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "OddLotVol('000)",
+          "type": "double",
+          "physical": ""
+        },
+        {
+          "name": "TradeVolForOddLots('000)",
+          "type": "double",
+          "physical": ""
+        }
+      ],
+      "error": ""
+    }
+  ]
+}

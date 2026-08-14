@@ -14,6 +14,8 @@ import tempfile
 import os
 from pathlib import Path
 from modules import ingest, clean, schema, db, query, export, profiles, filters
+import inventory_ui
+import sampling_ui
 
 LARGE_FILE_THRESHOLD_MB = 50  # above this, route through DuckDB's native reader instead of pandas
 
@@ -279,8 +281,8 @@ def _render_schema_board(tables_data: dict, relationships: list, height: int = 7
     """
     components.html(html, height=height, scrolling=False)
 
-st.set_page_config(page_title="Internal Data Prep Tool", layout="wide")
-st.title(" 🪐 Saturn Ion - Internal Data Prep Tool")
+st.set_page_config(page_title="Data Prep Tool", page_icon="🆂", layout="wide")
+st.title(" 🪐 Saturn Ion - in memory of my first car")
 
 filters.seed_default_if_missing()
 con = db.get_connection()
@@ -314,13 +316,21 @@ with st.sidebar.expander("Loaded Tables", expanded=False):
                 if _col3.button("🗑️", key=f"sidebar_drop_{_t}"):
                     db.drop_table(con, _t)
                     st.rerun()
-tab_load, tab_schema, tab_tables, tab_profiles, tab_query, tab_export = st.tabs(
-    ["1. Load & Clean", "2. Schema", "3. Warehouse Tables", "4. Profiles", "5. Query Builder", "6. Export"]
+(tab_inventory, tab_sample, tab_load, tab_schema, tab_tables,
+ tab_profiles, tab_query, tab_export) = st.tabs(
+    ["1. Inventory", "2. Sample", "3. Load & Clean", "4. Schema",
+     "5. Warehouse Tables", "6. Profiles", "7. Query Builder", "8. Export"]
 )
 
 # ---------------------------------------------------------------------------
-# TAB 1: Load & Clean
+# TAB 1: Inventory
 # ---------------------------------------------------------------------------
+with tab_inventory:
+    inventory_ui.render()
+
+with tab_sample:
+    sampling_ui.render(con)
+
 with tab_load:
     st.subheader("Load from server path (recommended for very large files)")
     st.caption("For files too large to upload through the browser (50GB, 100GB+), point directly at the "
@@ -576,46 +586,154 @@ with tab_profiles:
                     st.rerun()
 
     st.markdown("---")
-    st.subheader("Filter Profiles — reusable drug lists, regions, date ranges")
+    st.markdown("---")
+    st.subheader("Filter Profiles")
+    st.caption("Pick pieces from each section below, then save the combination as a new filter profile. "
+               "Or skip straight to the custom builder at the bottom to define everything from scratch.")
 
-    filt_col1, filt_col2 = st.columns([1, 1])
+    # =========================================================================
+    # SECTION 1: TIME
+    # =========================================================================
+    st.markdown("### ⏱️ Time")
+    qf_col1, qf_col2 = st.columns(2)
+    with qf_col1:
+        qf_date_start = st.text_input("Start date (YYYY-MM-DD)", value="", key="qf_date_start")
+    with qf_col2:
+        qf_date_end = st.text_input("End date (YYYY-MM-DD)", value="", key="qf_date_end")
 
-    with filt_col1:
-        st.markdown("**Create / update a filter profile**")
-        filter_name = st.text_input("Filter profile name", value="opioid_8_drug", key="filter_name")
-        drug_text = st.text_area(
-            "Drug list (one per line)",
-            value="\n".join(filters.DEFAULT_OPIOID_DRUGS),
-            height=150,
-        )
-        region_text = st.text_area("Region values (one per line, optional)", value="", height=80)
-        date_start = st.text_input("Date range start (optional, YYYY-MM-DD)", value="")
-        date_end = st.text_input("Date range end (optional, YYYY-MM-DD)", value="")
+    # =========================================================================
+    # SECTION 2: REGION
+    # =========================================================================
+    st.markdown("### 📍 Region")
+    qf_region_method = st.radio(
+        "Define region by:",
+        ["From a loaded table's ZIP/location column", "Upload a file of location names"],
+        horizontal=True, key="qf_region_method",
+    )
 
-        if st.button("💾 Save filter profile"):
-            fp = filters.FilterProfile(
-                name=filter_name,
-                drug_list=[d.strip() for d in drug_text.splitlines() if d.strip()],
-                region_values=[r.strip() for r in region_text.splitlines() if r.strip()],
-                date_start=date_start, date_end=date_end,
-            )
-            filters.save_profile(fp)
-            st.success(f"Saved filter profile '{filter_name}'.")
+    if qf_region_method == "From a loaded table's ZIP/location column":
+        qf_region_tables = db.list_tables(con)
+        if not qf_region_tables:
+            st.info("Load a table in Tab 1 first.")
+        else:
+            qf_rt_col1, qf_rt_col2 = st.columns(2)
+            with qf_rt_col1:
+                qf_region_table = st.selectbox("Table", qf_region_tables, key="qf_region_table")
+            with qf_rt_col2:
+                qf_region_col = st.selectbox("Column", db.get_columns(con, qf_region_table), key="qf_region_col")
+            if st.button("📥 Load distinct values from this column", key="qf_load_region_col"):
+                qf_sql = f'SELECT DISTINCT "{qf_region_col}" AS v FROM "{qf_region_table}" WHERE "{qf_region_col}" IS NOT NULL LIMIT 5000'
+                qf_result = query.run_sql(con, qf_sql)
+                st.session_state["qf_region_values"] = qf_result["v"].astype(str).tolist()
+    else:
+        qf_region_file = st.file_uploader("File with one location per line (CSV or TXT)",
+                                           type=["csv", "txt"], key="qf_region_file")
+        if qf_region_file is not None:
+            try:
+                if qf_region_file.name.lower().endswith(".csv"):
+                    qf_rdf = ingest.load_file(qf_region_file)
+                    qf_parsed = qf_rdf[qf_rdf.columns[0]].dropna().astype(str).unique().tolist()
+                else:
+                    qf_parsed = [ln.decode("utf-8").strip() for ln in qf_region_file.readlines()]
+                    qf_parsed = [p for p in qf_parsed if p]
+                st.session_state["qf_region_values"] = qf_parsed
+                st.success(f"Loaded {len(qf_parsed)} location values from {qf_region_file.name}.")
+            except Exception as e:
+                st.error(f"Could not read file: {e}")
+
+    qf_region_values = st.session_state.get("qf_region_values", [])
+    if qf_region_values:
+        _preview = ", ".join(qf_region_values[:10])
+        st.caption(f"✅ {len(qf_region_values)} region values loaded: {_preview}"
+                   f"{' ...' if len(qf_region_values) > 10 else ''}")
+        if st.button("Clear region selection", key="qf_clear_region"):
+            st.session_state["qf_region_values"] = []
             st.rerun()
 
-    with filt_col2:
-        st.markdown("**Saved filter profiles**")
-        saved_filters = filters.list_profiles()
-        for name in saved_filters:
-            with st.expander(name):
-                fp = filters.load_profile(name)
-                st.write(f"**Drugs:** {', '.join(fp.drug_list) or '(none)'}")
-                st.write(f"**Regions:** {', '.join(fp.region_values) or '(none)'}")
-                if fp.date_start or fp.date_end:
-                    st.write(f"**Date range:** {fp.date_start} to {fp.date_end}")
-                if st.button(f"🗑️ Delete '{name}'", key=f"del_filter_{name}"):
-                    filters.delete_profile(name)
+    # =========================================================================
+    # SECTION 3: DRUGS — saved drug-list profiles as buttons
+    # =========================================================================
+    st.markdown("### 💊 Drugs")
+    qf_drug_profile_names = [n for n in filters.list_profiles() if filters.load_profile(n).drug_list]
+
+    if not qf_drug_profile_names:
+        st.info("No saved drug lists yet — create one in the custom builder at the bottom.")
+    else:
+        qf_selected_drug = st.session_state.get("qf_selected_drug")
+        qf_btn_cols = st.columns(len(qf_drug_profile_names))
+        for i, qf_dname in enumerate(qf_drug_profile_names):
+            with qf_btn_cols[i]:
+                qf_dp = filters.load_profile(qf_dname)
+                qf_is_selected = (qf_selected_drug == qf_dname)
+                if st.button(
+                    f"{qf_dname}\n({len(qf_dp.drug_list)})",
+                    key=f"qf_drugbtn_{qf_dname}",
+                    use_container_width=True,
+                    type="primary" if qf_is_selected else "secondary",
+                ):
+                    st.session_state["qf_selected_drug"] = None if qf_is_selected else qf_dname
                     st.rerun()
+
+        qf_selected_drug = st.session_state.get("qf_selected_drug")
+        if qf_selected_drug:
+            qf_dp = filters.load_profile(qf_selected_drug)
+            st.caption(f"Selected: **{qf_selected_drug}** — {len(qf_dp.drug_list)} entries, "
+                       f"role: `{qf_dp.drug_list_role}`")
+
+    # =========================================================================
+    # Save the Time + Region + Drug combination picked above
+    # =========================================================================
+    st.markdown("---")
+    qf_combo_name = st.text_input("Save this combination as a new Filter Profile", value="", key="qf_combo_name")
+    if st.button("💾 Save combined filter profile", key="qf_save_combo") and qf_combo_name:
+        qf_selected_drug = st.session_state.get("qf_selected_drug")
+        qf_drug_list, qf_drug_role = [], "drug_name"
+        if qf_selected_drug:
+            qf_base = filters.load_profile(qf_selected_drug)
+            qf_drug_list, qf_drug_role = qf_base.drug_list, qf_base.drug_list_role
+        filters.save_profile(filters.FilterProfile(
+            name=qf_combo_name,
+            drug_list=qf_drug_list, drug_list_role=qf_drug_role,
+            region_values=st.session_state.get("qf_region_values", []),
+            date_start=qf_date_start, date_end=qf_date_end,
+        ))
+        st.success(f"Saved '{qf_combo_name}'.")
+        st.rerun()
+
+    # =========================================================================
+    # All saved filter profiles — browse / delete
+    # =========================================================================
+    with st.expander("📁 All saved filter profiles"):
+        for _name in filters.list_profiles():
+            _fp = filters.load_profile(_name)
+            st.write(f"**{_name}** — drugs: {len(_fp.drug_list)} ({_fp.drug_list_role}) | "
+                     f"regions: {len(_fp.region_values)} | dates: {_fp.date_start or '...'} to {_fp.date_end or '...'}")
+            if st.button(f"🗑️ Delete '{_name}'", key=f"qf_del_{_name}"):
+                filters.delete_profile(_name)
+                st.rerun()
+
+    # =========================================================================
+    # CUSTOMIZABLE FILTER — build one entirely from scratch, always last
+    # =========================================================================
+    st.markdown("---")
+    st.markdown("### 🛠️ Build a custom filter profile")
+    filter_name = st.text_input("Filter profile name", value="", key="filter_name")
+    drug_text = st.text_area("Drug list (one per line)", value="", height=150, key="custom_drug_text")
+    custom_drug_role = st.radio("This list matches:", ["drug_name", "drug_code"], horizontal=True, key="custom_drug_role")
+    region_text = st.text_area("Region values (one per line, optional)", value="", height=80, key="custom_region_text")
+    date_start = st.text_input("Date range start (optional, YYYY-MM-DD)", value="", key="custom_date_start")
+    date_end = st.text_input("Date range end (optional, YYYY-MM-DD)", value="", key="custom_date_end")
+
+    if st.button("💾 Save custom filter profile", key="custom_save") and filter_name:
+        filters.save_profile(filters.FilterProfile(
+            name=filter_name,
+            drug_list=[d.strip() for d in drug_text.splitlines() if d.strip()],
+            drug_list_role=custom_drug_role,
+            region_values=[r.strip() for r in region_text.splitlines() if r.strip()],
+            date_start=date_start, date_end=date_end,
+        ))
+        st.success(f"Saved filter profile '{filter_name}'.")
+        st.rerun()
 
 with tab_query:
     st.subheader("Build a query")

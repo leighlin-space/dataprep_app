@@ -1,0 +1,15 @@
+{
+  "folders": [
+    "/Users/lisali/Downloads/individual_security_2025_q4",
+    "/Users/lisali/Downloads/individual_security_2023_q4",
+    "/Users/lisali/Downloads/individual_security_2024_q4"
+  ],
+  "excluded": [
+    "/Users/lisali/Downloads/individual_security_2023_q4/README.txt",
+    "/Users/lisali/Downloads/individual_security_2024_q4/README.txt",
+    "/Users/lisali/Downloads/individual_security_2025_q4/README.txt"
+  ],
+  "merges": {},
+  "file_overrides": {},
+  "batch_label": ""
+}

@@ -6,7 +6,6 @@ reasonable type inference, regardless of source format.
 import io
 import pandas as pd
 
-
 def load_file(uploaded_file) -> pd.DataFrame:
     """
     uploaded_file: a Streamlit UploadedFile (has .name and read()-able bytes)
